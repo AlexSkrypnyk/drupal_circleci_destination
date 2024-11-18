@@ -3,7 +3,7 @@
   <img width=200px height=200px src="https://github.com/AlexSkrypnyk/drupal_extension_scaffold/assets/378794/31658686-7a8a-4203-9c8b-a8bc0b99f002" alt="Drupal extension scaffold"></a>
 </p>
 
-<h1 align="center">Drupal extension scaffold</h1>
+<h1 align="center">Drupal extension template with CI integration and mirroring to Drupal.org</h1>
 
 <div align="center">
 
@@ -23,29 +23,23 @@
 
 ---
 
-<p align="center">Drupal extension template for development and testing in CI of your choice with mirroring to Drupal.org</p>
-
 ## Use case
 
-Perform extension development in GitHub with testing in CI, and push code
-committed only to the main branches (`1.x`, `2.x` etc.)
-to [drupal.org](https://drupal.org).
+Develop a module or theme on GitHub, test in GitHub Actions or CircleCI, and push the code to [drupal.org](https://drupal.org).
 
 ## Features
 
 - Turnkey CI configuration with artifacts and test results support.
   - PHP version matrix for [8.2](https://www.php.net/supported-versions.php), [8.3](https://www.php.net/supported-versions.php).
-  - Drupal version matrix: `stable`, `next` and `last EOL` version.
-  - CI providers:
-      - [GitHub Actions](.github/workflows/test.yml)
-      - [CircleCI](.circleci/config.yml)
+  - Drupal version matrix: `stable`, `next` and `legacy` version.
+  - CI providers: [GitHub Actions](.github/workflows/test.yml) and [CircleCI](.circleci/config.yml)
 - Tools:
   - Develop locally using PHP running on your host using
     identical [`.devtools`](.devtools) scripts as in CI.
     - Uses [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project)
   to create drupal site structure. Providing a custom fork of `drupal-project` is also supported.
     - Additional development dependenices provided in [`composer.dev.json`](composer.dev.json). These are merged during the codebase build.
-    - The extension can installed as a module or a theme: modify `type` property set in the `info.yml` file.
+    - The extension can be installed as a module or a theme: modify `type` property set in the `info.yml` file.
     - Additional dependencies can be added for integration testing
     between extensions: add dependency into [`suggest`](composer.json#L25) section
     of `composer.json`.
