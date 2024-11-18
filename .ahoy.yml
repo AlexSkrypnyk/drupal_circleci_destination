@@ -89,9 +89,9 @@ commands:
     usage: Reset project to the default state.
     cmd: |
       killall -9 php >/dev/null 2>&1 || true
-      chmod -Rf 777 build > /dev/null
-      rm -Rf build > /dev/null || true
-      rm -Rf .logs > /dev/null || true
+      chmod -Rf 777 build .logs > /dev/null 2>&1 || true
+      rm -Rf build > /dev/null 2>&1 || true
+      rm -Rf .logs > /dev/null 2>&1 || true
 
 # Override entrypoint to alter default behaviour of Ahoy.
 entrypoint:
