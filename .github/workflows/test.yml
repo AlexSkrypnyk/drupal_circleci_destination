@@ -18,36 +18,72 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: test-php-8.2
+          - name: test-php-8.2-d10-legacy
             php-version: 8.2
-            drupal-version: stable
-            drupal-project-sha: 10.x
+            drupal-version: 10.2
 
-          - name: test-php-8.2-legacy
+          - name: test-php-8.2-d10-stable
             php-version: 8.2
-            drupal-version: 10.1
-            drupal-project-sha: 10.x
+            drupal-version: 10.3
 
-          - name: test-php-8.2-next
+          - name: test-php-8.2-d10-canary
             php-version: 8.2
-            drupal-version: 10@beta
-            drupal-project-sha: 10.x
+            drupal-version: 10.4@beta
+            stability: canary
 
-          - name: test-php-8.3
+          - name: test-php-8.3-d10-legacy
             php-version: 8.3
-            drupal-version: stable
-            drupal-project-sha: 10.x
+            drupal-version: 10.2
 
-          - name: test-php-8.3-next
+          - name: test-php-8.3-d10-stable
             php-version: 8.3
-            drupal-version: 11@alpha
-            drupal-project-sha: 11.x
+            drupal-version: 10.3
+
+          - name: test-php-8.3-d10-canary
+            php-version: 8.3
+            drupal-version: 10.4@beta
+            stability: canary
+
+          - name: test-php-8.4-d10-legacy
+            php-version: 8.4
+            drupal-version: 10.3 # Lowest Drupal version that supports PHP 8.4.
+
+          - name: test-php-8.4-d10-stable
+            php-version: 8.4
+            drupal-version: 10.3
+
+          - name: test-php-8.4-d10-canary
+            php-version: 8.4
+            drupal-version: 10.4@beta
+
+          - name: test-php-8.3-d11-legacy
+            php-version: 8.3
+            drupal-version: 11.0 # Lowest Drupal version that exists.
+
+          - name: test-php-8.3-d11-stable
+            php-version: 8.3
+            drupal-version: 11.0
+
+          - name: test-php-8.3-d11-canary
+            php-version: 8.3
+            drupal-version: 11@beta
+
+          - name: test-php-8.4-d11-legacy
+            php-version: 8.4
+            drupal-version: 11.0 # Lowest Drupal version that exists.
+
+          - name: test-php-8.4-d11-stable
+            php-version: 8.4
+            drupal-version: 11.0
+
+          - name: test-php-8.4-d11-canary
+            php-version: 8.4
+            drupal-version: 11@beta
 
     name: ${{ matrix.name }}
 
     env:
       DRUPAL_VERSION: ${{ matrix.drupal-version }}
-      DRUPAL_PROJECT_SHA: ${{ matrix.drupal-project-sha }}
 
     steps:
       - name: Checkout code
@@ -74,8 +110,16 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: gd, sqlite, pdo_sqlite
 
+      # Disable Symfony deprecations helper for PHP 8.4+ until minor
+      # versions of Drupal 10 and 11 fully support PHP 8.4.
+      # @see https://www.drupal.org/project/drupal/issues/1267246
+      - name: Update SYMFONY_DEPRECATIONS_HELPER for PHP 8.4
+        run: if [ "${{ matrix.php-version }}" == "8.4" ]; then echo "SYMFONY_DEPRECATIONS_HELPER=disabled" >> "$GITHUB_ENV"; fi
+
       - name: Assemble the codebase
         run: .devtools/assemble.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start built-in PHP server
         run: .devtools/start.sh
@@ -90,6 +134,7 @@ jobs:
       - name: Lint code with PHPStan
         working-directory: build
         run: vendor/bin/phpstan || [ "${CI_PHPSTAN_IGNORE_FAILURE:-0}" -eq 1 ]
+        continue-on-error: ${{ endsWith(matrix.name, 'canary') }} # PHPStan levels for canary releases are not the same as for this project.
 
       - name: Lint code with Rector
         working-directory: build

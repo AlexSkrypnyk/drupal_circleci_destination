@@ -93,8 +93,12 @@ echo "Site URL:            http://${WEBSERVER_HOST}:${WEBSERVER_PORT}"
 echo -n "One-time login link: "
 drush -l "http://${WEBSERVER_HOST}:${WEBSERVER_PORT}" uli --no-browser
 echo
-echo "> Available commands:"
-echo "  ahoy build  # Rebuild"
-echo "  ahoy lint   # Check coding standards"
-echo "  ahoy test   # Run tests"
+if [ -f ".ahoy.yml" ]; then
+  # shellcheck disable=SC2016
+  echo 'Run `ahoy` to see available commands.'
+fi
+if [ -f "Makefile" ]; then
+  # shellcheck disable=SC2016
+  echo 'Run `make` to see available commands.'
+fi
 echo
