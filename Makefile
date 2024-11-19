@@ -21,8 +21,6 @@ help:
 	@echo "test-functional - Run functional tests."
 	@echo "test-kernel     - Run kernel tests."
 	@echo "test-unit       - Run unit tests."
-	@echo ""
-	@echo "Start by running \"make build\""
 
 build: stop assemble start provision
 

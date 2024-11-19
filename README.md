@@ -29,10 +29,11 @@ Develop a module or theme on GitHub, test in GitHub Actions or CircleCI, and pus
 
 ## Features
 
-- Turnkey CI configuration with artifacts and test results support.
-  - PHP version matrix for [8.2](https://www.php.net/supported-versions.php), [8.3](https://www.php.net/supported-versions.php).
-  - Drupal version matrix: `stable`, `next` and `legacy` version.
-  - CI providers: [GitHub Actions](.github/workflows/test.yml) and [CircleCI](.circleci/config.yml)
+- Turnkey CI configuration:
+  - PHP version matrix: `8.2`, `8.3`, `8.4`.
+  - Drupal version matrix: `stable`, `canary` and `legacy`.
+  - CI providexrs: [GitHub Actions](.github/workflows/test.yml) and [CircleCI](.circleci/config.yml)
+  - Code coverage with [codecov.io](https://codecov.io).
 - Tools:
   - Develop locally using PHP running on your host using
     identical [`.devtools`](.devtools) scripts as in CI.
@@ -41,7 +42,7 @@ Develop a module or theme on GitHub, test in GitHub Actions or CircleCI, and pus
     - Additional development dependenices provided in [`composer.dev.json`](composer.dev.json). These are merged during the codebase build.
     - The extension can be installed as a module or a theme: modify `type` property set in the `info.yml` file.
     - Additional dependencies can be added for integration testing
-    between extensions: add dependency into [`suggest`](composer.json#L25) section
+    between extensions: add dependency into `suggest` section
     of `composer.json`.
     ![Build process](.scaffold/docs/static/img/build.gif)
     - Patches can be applied to the dependencies: add a patch to the
