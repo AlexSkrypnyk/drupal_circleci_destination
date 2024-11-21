@@ -70,6 +70,9 @@ info "Validate tools."
 ! command -v jq >/dev/null && fail "ERROR: jq (https://stedolan.github.io/jq/) is required for this script to run." && exit 1
 pass "Tools are valid."
 
+# Set the sed options based on the OS.
+sed_opts=(-i) && [ "$(uname)" == "Darwin" ] && sed_opts=(-i '')
+
 # Extension name, taken from the .info file.
 extension="$(basename -s .info.yml -- ./*.info.yml)"
 [ "${extension}" == "*" ] && fail "ERROR: No .info.yml file found." && exit 1
@@ -104,7 +107,6 @@ git --git-dir="build/.git" --work-tree="build" checkout "${DRUPAL_PROJECT_SHA}"
 rm -rf "build/.git" >/dev/null
 
 note "Pinning Drupal to a specific version ${DRUPAL_VERSION}."
-sed_opts=(-i) && [ "$(uname)" == "Darwin" ] && sed_opts=(-i '')
 sed "${sed_opts[@]}" 's|\(.*"drupal\/core.*"\): "\(.*\)",.*|\1: '"\"~$DRUPAL_VERSION\",|" "build/composer.json"
 grep '"drupal/core-.*": "' "build/composer.json"
 
@@ -166,13 +168,16 @@ pass "Suggested dependencies installed."
 # leads to functional tests failing due to deprecation notices showing up in
 # the page output, which is then interpreted as a test failure by PHPUnit.
 # To address this, we inject the error_reporting() without deprecations into
-# the default.settings.php file used by the system under test. But we do this
-# only if the deprecations helper is set to `disable` which means to ignore
-# deprecation notices.
+# the index.php and default.settings.php file used by the system under test.
+# But we do this only if the deprecations helper is set to `disable` which means
+# to ignore deprecation notices.
 # @see https://www.drupal.org/project/drupal/issues/1267246
 if [ "${SYMFONY_DEPRECATIONS_HELPER-}" == "disabled" ]; then
   info "Disabling deprecation notices in functional tests."
   echo "error_reporting(E_ALL & ~E_DEPRECATED);" >>build/web/sites/default/default.settings.php
+  sed "${sed_opts[@]}" 's/^<?php/<?php error_reporting(E_ALL \& ~E_DEPRECATED);/' build/web/index.php
+  # shellcheck disable=SC2016
+  sed "${sed_opts[@]}" 's/string $request_data = null, array $controls = null/string $request_data, array $controls/' build/vendor/symfony/polyfill-php83/bootstrap.php || true
   pass "Deprecation notices disabled."
 fi
 
