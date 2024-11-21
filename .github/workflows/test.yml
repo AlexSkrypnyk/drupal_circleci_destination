@@ -114,7 +114,10 @@ jobs:
       # versions of Drupal 10 and 11 fully support PHP 8.4.
       # @see https://www.drupal.org/project/drupal/issues/1267246
       - name: Update SYMFONY_DEPRECATIONS_HELPER for PHP 8.4
-        run: if [ "${{ matrix.php-version }}" == "8.4" ]; then echo "SYMFONY_DEPRECATIONS_HELPER=disabled" >> "$GITHUB_ENV"; fi
+        run: |
+          if [ "$(php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;')" == "84" ]; then
+            echo "SYMFONY_DEPRECATIONS_HELPER=disabled" >> "$GITHUB_ENV"
+          fi
 
       - name: Assemble the codebase
         run: .devtools/assemble.sh
