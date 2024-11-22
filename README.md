@@ -3,7 +3,7 @@
   <img width=200px height=200px src="https://github.com/AlexSkrypnyk/drupal_extension_scaffold/assets/378794/31658686-7a8a-4203-9c8b-a8bc0b99f002" alt="Drupal extension scaffold"></a>
 </p>
 
-<h1 align="center">Drupal extension template with CI integration and mirroring to Drupal.org</h1>
+<h1 align="center">Template for a contributed Drupal module or theme with CI and Drupal.org mirroring</h1>
 
 <div align="center">
 
