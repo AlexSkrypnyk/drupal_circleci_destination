@@ -25,7 +25,7 @@
 
 ## Use case
 
-Develop a module or theme on GitHub, test in GitHub Actions or CircleCI, and push the code to [drupal.org](https://drupal.org).
+Develop a module or theme on GitHub, test it using GitHub Actions or CircleCI, and push the code to [Drupal.org](https://drupal.org).
 
 ## Features
 
