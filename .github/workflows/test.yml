@@ -16,6 +16,7 @@ jobs:
 
     strategy:
       fail-fast: false
+
       matrix:
         include:
           - name: test-php-8.2-d10-legacy
