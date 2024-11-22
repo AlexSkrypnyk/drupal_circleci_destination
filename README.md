@@ -32,7 +32,7 @@ Develop a module or theme on GitHub, test in GitHub Actions or CircleCI, and pus
 - Turnkey CI configuration:
   - PHP version matrix: `8.2`, `8.3`, `8.4`.
   - Drupal version matrix: `stable`, `canary` and `legacy`.
-  - CI providexrs: [GitHub Actions](.github/workflows/test.yml) and [CircleCI](.circleci/config.yml)
+  - CI providers: [GitHub Actions](.github/workflows/test.yml) and [CircleCI](.circleci/config.yml)
   - Code coverage with [codecov.io](https://codecov.io).
 - Tools:
   - Develop locally using PHP running on your host using
