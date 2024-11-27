@@ -78,3 +78,6 @@ your extension.
 To browse the contents of created SQLite database
 (located at `/tmp/site_[EXTENSION_NAME].sqlite`),
 use [DB Browser for SQLite](https://sqlitebrowser.org/).
+
+---
+_This repository was created using the [Drupal Extension Scaffold](https://github.com/AlexSkrypnyk/drupal_extension_scaffold) project template_
