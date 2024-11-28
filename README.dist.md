@@ -15,7 +15,10 @@
 ![LICENSE](https://img.shields.io/github/license/YourNamespace/your_extension)
 ![Renovate](https://img.shields.io/badge/renovate-enabled-green?logo=renovatebot)
 
-![Drupal 10](https://img.shields.io/badge/Drupal-10-blue.svg)
+![PHP 8.2](https://img.shields.io/badge/PHP-8.2-777BB4.svg)
+![PHP 8.3](https://img.shields.io/badge/PHP-8.3-777BB4.svg)
+![PHP 8.4](https://img.shields.io/badge/PHP-8.4-777BB4.svg)
+![Drupal 10](https://img.shields.io/badge/Drupal-10-009CDE.svg)
 ![Drupal 11](https://img.shields.io/badge/Drupal-11-006AA9.svg)
 
 </div>
