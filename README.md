@@ -30,6 +30,19 @@
 Develop a module or theme on GitHub, test it using GitHub Actions or CircleCI,
 and push the code to [Drupal.org](https://drupal.org).
 
+## Index
+
+- [Features](#features)
+- [Setup overview](#setup-overview)
+- [Codebase setup](#codebase-setup)
+- [Building website](#building-website)
+- [Coding standards](#coding-standards)
+- [Testing](#testing)
+- [Branch protection](#branch-protection)
+- [Deployment](#deployment)
+- [Updating your extension](#updating-your-extension)
+- [Maintenance](#maintenance)
+
 ## Features
 
 - Turnkey CI configuration:
@@ -362,6 +375,32 @@ ssh-keygen -m PEM -t rsa -b 4096 -C "your_email+project_name@example.com"
   deploy. Without this variable, the deployment job will run but will not
   push the code. This is useful for testing the deployment job.
 
+## Updating your extension
+
+When this template is updated, you can merge the changes into your extension
+codebase.
+
+There is no easy way to automate this process, as the changes in the template
+may conflict with the changes in your extension. However, you can use the
+following steps to update your extension:
+
+1. Download the latest version of this codebase by pressing 'Clone or download'
+   button in GitHub UI.
+2. Expand into a new directory.
+3. Run the initial [codebase setup](#codebase-setup) script: `./init.sh` and
+   repeat the answers you provided during the initial setup.
+4. Create a new branch in your extension's repository.
+5. Copy all files into your extension's directory and override the existing files.
+6. Resolve any conflicts between the new files and your extension's files. Refer
+   to the release notes for any breaking changes and accept/reject them as needed.
+7. [Build website](#building-website) with `make build` or `ahoy build`
+   to check that everything is set up correctly.
+8. [Check coding standards](#coding-standards) with `make lint` or `ahoy lint`.
+9. [Run tests](#testing) with `make test` or `ahoy test`.
+10. Commit and push to your new GitHub repo.
+11. Check that all the CI jobs are finishing successfully.
+12. Merge the new branch into your main branch.
+13. Check that the deployment job is working correctly.
 
 ## Maintenance
 
