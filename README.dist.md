@@ -170,8 +170,8 @@ You may also run tests using the `phpunit` command directly:
 
 ```bash
 cd build
-./vendor/bin/phpunit tests/src/Unit/MyUnitTest.php
-./vendor/bin/phpunit --group=wip
+php -d pcov.directory=.. vendor/bin/phpunit tests/src/Unit/MyUnitTest.php
+php -d pcov.directory=.. vendor/bin/phpunit --group=wip
 ```
 
 ---

@@ -111,7 +111,6 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: gd, sqlite, pdo_sqlite
           coverage: pcov
-          ini-values: pcov.directory=.
 
       # Disable Symfony deprecations helper for PHP 8.4+ until minor
       # versions of Drupal 10 and 11 fully support PHP 8.4.
@@ -156,7 +155,7 @@ jobs:
 
       - name: Run tests
         working-directory: build
-        run: vendor/bin/phpunit || [ "${CI_TEST_IGNORE_FAILURE:-0}" -eq 1 ]
+        run: php -d pcov.directory=.. vendor/bin/phpunit || [ "${CI_TEST_IGNORE_FAILURE:-0}" -eq 1 ]
         env:
           BROWSERTEST_OUTPUT_DIRECTORY: /tmp
 

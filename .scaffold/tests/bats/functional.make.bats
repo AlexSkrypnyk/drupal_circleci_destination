@@ -1,18 +1,25 @@
 #!/usr/bin/env bats
 
 load _helper
+load _assert_functional
 
 export BATS_FIXTURE_EXPORT_CODEBASE_ENABLED=1
 
-# bats file_tags=p1
-@test "ahoy build" {
-  run ahoy build
+# bats file_tags=p2
+@test "make default" {
+  run make
   assert_success
+
+  assert_output_contains "ASSEMBLE COMPLETE"
   assert_output_contains "PROVISION COMPLETE"
+
+  assert_dir_exists "${BUILD_DIR}/build/vendor"
+  assert_file_exists "${BUILD_DIR}/build/composer.json"
+  assert_file_exists "${BUILD_DIR}/build/composer.lock"
 }
 
-@test "ahoy assemble" {
-  run ahoy assemble
+@test "make assemble" {
+  run make assemble
   assert_success
 
   assert_output_contains "ASSEMBLE COMPLETE"
@@ -23,10 +30,10 @@ export BATS_FIXTURE_EXPORT_CODEBASE_ENABLED=1
   assert_output_contains "Would run build"
 }
 
-@test "ahoy assemble - skip NPM build" {
+@test "make assemble - skip NPM build" {
   touch ".skip_npm_build"
 
-  run ahoy assemble
+  run make assemble
   assert_success
 
   assert_output_contains "ASSEMBLE COMPLETE"
@@ -37,116 +44,118 @@ export BATS_FIXTURE_EXPORT_CODEBASE_ENABLED=1
   assert_output_not_contains "Would run build"
 }
 
-@test "ahoy start" {
-  run ahoy start
+@test "make start" {
+  run make start
   assert_failure
-  assert_output_not_contains "ENVIRONMENT READY"
 
-  ahoy assemble
-  run ahoy start
+  make assemble
+  run make start
   assert_success
 
   assert_output_contains "ENVIRONMENT READY"
 }
 
-@test "ahoy stop" {
-  run ahoy stop
+@test "make stop" {
+  run make stop
   assert_success
   assert_output_contains "ENVIRONMENT STOPPED"
 
-  ahoy assemble
-  ahoy start
+  make assemble
+  make start
 
-  run ahoy stop
+  run make stop
   assert_success
+
   assert_output_contains "ENVIRONMENT STOPPED"
 }
 
-@test "ahoy provision" {
-  run ahoy assemble
-  run ahoy start
-  run ahoy provision
+@test "make provision" {
+  run make assemble
+  run make start
+  run make provision
   assert_success
   assert_output_contains "PROVISION COMPLETE"
   assert_output_not_contains "Do you really want to drop all tables in the database"
-  run ahoy provision
+  run make provision
   assert_success
   assert_output_contains "PROVISION COMPLETE"
   assert_output_contains "Do you really want to drop all tables in the database"
 }
 
-@test "ahoy build - basic workflow" {
-  run ahoy build
+@test "make build - basic workflow" {
+  run make build
   assert_success
   assert_output_contains "PROVISION COMPLETE"
 
-  run ahoy drush status
+  run make drush status
   assert_success
   assert_output_contains "Database         : Connected"
   assert_output_contains "Drupal bootstrap : Successful"
 
-  run ahoy login
+  run make login
   assert_success
   assert_output_contains "user/reset/1/"
 
-  ahoy lint
+  make lint
   assert_success
 
-  ahoy test
+  make test
   assert_success
   assert_dir_exists "${BUILD_DIR}/build/web/sites/simpletest/browser_output"
 }
 
-@test "ahoy lint, lint-fix" {
-  ahoy assemble
+@test "make lint, lint-fix" {
+  make assemble
   assert_success
 
-  ahoy lint
+  make lint
   assert_success
 
   # shellcheck disable=SC2016
   echo '$a=123;echo $a;' >>your_extension.module
-  run ahoy lint
+  run make lint
   assert_failure
 
-  run ahoy lint-fix
-  run ahoy lint
+  run make lint-fix
+  run make lint
   assert_success
 }
 
-@test "ahoy test unit failure" {
-  run ahoy assemble
+@test "make test unit failure" {
+  run make assemble
   assert_success
 
-  run ahoy test-unit
+  run make test-unit
   assert_success
+
+  assert_test_coverage
 
   sed -i -e "s/assertEquals/assertNotEquals/g" "${BUILD_DIR}/tests/src/Unit/YourExtensionServiceUnitTest.php"
-  run ahoy test-unit
+  run make test-unit
   assert_failure
 }
 
-@test "ahoy test functional failure" {
-  run ahoy build
+@test "make test functional failure" {
+  run make build
   assert_success
 
-  run ahoy test-functional
+  run make test-functional
   assert_success
   assert_dir_exists "${BUILD_DIR}/build/web/sites/simpletest/browser_output"
 
   sed -i -e "s/responseContains/responseNotContains/g" "${BUILD_DIR}/tests/src/Functional/YourExtensionFunctionalTest.php"
-  run ahoy test-functional
+  run make test-functional
   assert_failure
 }
 
-@test "ahoy test kernel failure" {
-  run ahoy build
+@test "make test kernel failure" {
+  run make build
   assert_success
 
-  run ahoy test-kernel
+  run make test-kernel
   assert_success
 
   sed -i -e "s/assertEquals/assertNotEquals/g" "${BUILD_DIR}/tests/src/Kernel/YourExtensionServiceKernelTest.php"
-  run ahoy test-kernel
+  run make test-kernel
   assert_failure
 }
