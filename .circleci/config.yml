@@ -84,7 +84,7 @@ job-test: &job-test
 
     - run:
         name: Run tests
-        command: vendor/bin/phpunit || [ "${CI_TEST_IGNORE_FAILURE:-0}" -eq 1 ]
+        command: php -d pcov.directory=.. vendor/bin/phpunit || [ "${CI_TEST_IGNORE_FAILURE:-0}" -eq 1 ]
         working_directory: build
         environment:
           BROWSERTEST_OUTPUT_DIRECTORY: /tmp

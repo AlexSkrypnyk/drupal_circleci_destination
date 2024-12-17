@@ -50,7 +50,7 @@ and push the code to [Drupal.org](https://drupal.org).
   - Drupal version matrix: `stable`, `canary` and `legacy`.
   - CI providers: [GitHub Actions](.github/workflows/test.yml)
     and [CircleCI](.circleci/config.yml)
-  - Code coverage with [codecov.io](https://codecov.io).
+  - Code coverage with https://github.com/krakjoe/pcov pushed to [codecov.io](https://codecov.io).
 - Develop locally using PHP running on your host using
   identical [`.devtools`](.devtools) scripts as in CI:
   - Uses [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project)
