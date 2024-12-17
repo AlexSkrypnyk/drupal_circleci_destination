@@ -148,7 +148,9 @@ See [README.md](README.dist.md) for more development commands.
 
 <details>
 <summary>Click to see <code>ahoy build</code> in action </summary>
+
 ![Build process](.scaffold/assets/build.gif)
+
 </details>
 
 ### Drupal versions
