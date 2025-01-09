@@ -11,6 +11,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/YourNamespace/your_extension.svg)](https://github.com/YourNamespace/your_extension/pulls)
 [![Build, test and deploy](https://github.com/YourNamespace/your_extension/actions/workflows/test.yml/badge.svg)](https://github.com/YourNamespace/your_extension/actions/workflows/test.yml)
 [![CircleCI](https://circleci.com/gh/YourNamespace/your_extension.svg?style=shield)](https://circleci.com/gh/YourNamespace/your_extension)
+[![codecov](https://codecov.io/gh/YourNamespace/your_extension/graph/badge.svg)](https://codecov.io/gh/YourNamespace/your_extension)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/YourNamespace/your_extension)
 ![LICENSE](https://img.shields.io/github/license/YourNamespace/your_extension)
 ![Renovate](https://img.shields.io/badge/renovate-enabled-green?logo=renovatebot)
