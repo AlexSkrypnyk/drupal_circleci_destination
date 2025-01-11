@@ -27,7 +27,7 @@ assert_files_present_common() {
   assert_dir_not_exists ".scaffold"
   assert_file_not_exists ".github/workflows/scaffold-release.yml"
   assert_file_not_exists ".github/workflows/scaffold-test.yml"
-  assert_file_not_exists "LICENSE"
+  assert_file_not_exists "LICENSE.txt"
   assert_file_not_exists "README.dist.md"
   assert_file_not_exists "logo.tmp.png"
 
