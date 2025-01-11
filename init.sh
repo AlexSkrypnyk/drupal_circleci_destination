@@ -141,7 +141,7 @@ remove_command_wrapper_makefile() {
 process_readme() {
   mv README.dist.md "README.md" >/dev/null 2>&1 || true
 
-  curl "https://placehold.jp/000000/ffffff/200x200.png?text=${1// /+}&css=%7B%22border-radius%22%3A%22%20100px%22%7D" >logo.tmp.png || true
+  curl --silent --show-error "https://placehold.jp/000000/ffffff/200x200.png?text=${1// /+}&css=%7B%22border-radius%22%3A%22%20100px%22%7D" >logo.tmp.png || true
   if [ -s "logo.tmp.png" ]; then
     mv logo.tmp.png "logo.png" >/dev/null 2>&1 || true
   fi
@@ -182,12 +182,17 @@ process_internal() {
   uncomment_line ".gitattributes" ".gitattributes"
   uncomment_line ".gitattributes" ".github"
   uncomment_line ".gitattributes" ".gitignore"
+  uncomment_line ".gitattributes" ".skip_npm_build"
   uncomment_line ".gitattributes" ".twig-cs-fixer.php"
   uncomment_line ".gitattributes" "Makefile"
   uncomment_line ".gitattributes" "composer.dev.json"
+  uncomment_line ".gitattributes" "package-lock.json"
+  uncomment_line ".gitattributes" "package.json"
   uncomment_line ".gitattributes" "phpcs.xml"
   uncomment_line ".gitattributes" "phpmd.xml"
   uncomment_line ".gitattributes" "phpstan.neon"
+  uncomment_line ".gitattributes" "phpunit.d10.xml"
+  uncomment_line ".gitattributes" "phpunit.xml"
   uncomment_line ".gitattributes" "rector.php"
   uncomment_line ".gitattributes" "renovate.json"
   uncomment_line ".gitattributes" "tests"
