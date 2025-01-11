@@ -78,15 +78,15 @@ and push the code to [Drupal.org](https://drupal.org).
   - PHP code mess detection with [PHPMD](https://phpmd.org/).
   - Twig code analysis
     with [Twig CS Fixer](https://github.com/VincentLanglet/Twig-CS-Fixer).
-  - PHPUnit testing support
-  - Renovate configuration to keep your repository dependencies up-to-date.
-  - [README.md](README.dist.md) template
+- PHPUnit testing support
+- Renovate configuration to keep your repository dependencies up-to-date.
+- [README.md](README.dist.md) template
 - Deployment:
   - Mirroring of the repo to Drupal.org (or any other git
     repo) on release.
   - Deploy to a destination branch different from the source branch.
   - Tags mirroring.
-- This template is tested in the same way as a project using it.
+- This template is tested in the same way as a project using it. See examples of the deployment destination repositories for [GitHub Actions](https://github.com/AlexSkrypnyk/drupal_extension_scaffold_destination_github) and [CircleCI](https://github.com/AlexSkrypnyk/drupal_extension_scaffold_destination_circleci)
 
 ## Setup overview
 
@@ -306,7 +306,7 @@ is found. You can fix the deprecated code or suppress the test by adding
 the `SYMFONY_DEPRECATIONS_HELPER` environment variable in the `phpunit.xml`.
 See https://www.drupal.org/node/3285162 for more details.
 
-Note that the CI configuration has jobs that run the unstable `canaary` versions
+Note that the CI configuration has jobs that run the unstable `canary` versions
 of Drupal which may have different deprecations. These versions have the
 `SYMFONY_DEPRECATIONS_HELPER` environment variable set to `disable` to ignore
 deprecation errors. You may want to adjust this Ci configuration for your
@@ -403,6 +403,8 @@ following steps to update your extension:
 11. Check that all the CI jobs are finishing successfully.
 12. Merge the new branch into your main branch.
 13. Check that the deployment job is working correctly.
+
+---
 
 ## Maintenance
 
