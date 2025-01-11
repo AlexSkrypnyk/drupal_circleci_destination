@@ -104,7 +104,7 @@ and push the code to [Drupal.org](https://drupal.org).
 9. Commit and push to your new GitHub repo.
 10. If using CircleCI, login and add your new GitHub repository. Your project
     build will start momentarily.
-11. [Configure branch protection] in GitHub(#branch-protection).
+11. [Configure branch protection in GitHub](#branch-protection).
 12. [Configure deployment](#deployment) to Drupal.org.
 
 See the sections below for more details.
