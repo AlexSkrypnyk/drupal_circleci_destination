@@ -34,6 +34,8 @@ export SCRIPT_FILE="init.sh"
   assert_command_wrapper_ahoy "${BUILD_DIR}"
   assert_output_contains "Initialization complete."
 
+  assert_composer_archive "${BUILD_DIR}"
+
   assert_workflow_run "${BUILD_DIR}"
 }
 
