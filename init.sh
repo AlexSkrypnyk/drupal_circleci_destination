@@ -186,6 +186,7 @@ process_internal() {
   uncomment_line ".gitattributes" ".twig-cs-fixer.php"
   uncomment_line ".gitattributes" "Makefile"
   uncomment_line ".gitattributes" "composer.dev.json"
+  uncomment_line ".gitattributes" "patches"
   uncomment_line ".gitattributes" "package-lock.json"
   uncomment_line ".gitattributes" "package.json"
   uncomment_line ".gitattributes" "phpcs.xml"

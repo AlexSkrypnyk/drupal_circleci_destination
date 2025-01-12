@@ -41,26 +41,32 @@ assert_files_present_common() {
 
   # Assert that .gitattributes were processed correctly.
   assert_file_contains ".gitattributes" ".editorconfig"
-  assert_file_not_contains ".gitattributes" "# .editorconfig"
   assert_file_contains ".gitattributes" ".gitattributes"
-  assert_file_not_contains ".gitattributes" "# .gitattributes"
   assert_file_contains ".gitattributes" ".github"
-  assert_file_not_contains ".gitattributes" "# .github"
   assert_file_contains ".gitattributes" ".gitignore"
-  assert_file_not_contains ".gitattributes" "# .gitignore"
-  assert_file_not_contains ".gitattributes" "# Uncomment the lines below in your project."
-  assert_file_contains ".gitattributes" "tests"
+  assert_file_contains ".gitattributes" "package-lock.json"
+  assert_file_contains ".gitattributes" "package.json"
+  assert_file_contains ".gitattributes" "patches"
   assert_file_contains ".gitattributes" "phpcs.xml"
   assert_file_contains ".gitattributes" "phpmd.xml"
   assert_file_contains ".gitattributes" "phpstan.neon"
-  assert_file_contains ".gitattributes" "phpunit.xml"
   assert_file_contains ".gitattributes" "phpunit.d10.xml"
-  assert_file_not_contains ".gitattributes" "# tests"
+  assert_file_contains ".gitattributes" "phpunit.xml"
+  assert_file_contains ".gitattributes" "tests"
+  assert_file_not_contains ".gitattributes" "# .editorconfig"
+  assert_file_not_contains ".gitattributes" "# .gitattributes"
+  assert_file_not_contains ".gitattributes" "# .github"
+  assert_file_not_contains ".gitattributes" "# .gitignore"
+  assert_file_not_contains ".gitattributes" "# Uncomment the lines below in your project."
+  assert_file_not_contains ".gitattributes" "# package-lock.json"
+  assert_file_not_contains ".gitattributes" "# package.json"
+  assert_file_not_contains ".gitattributes" "# patches"
   assert_file_not_contains ".gitattributes" "# phpcs.xml"
   assert_file_not_contains ".gitattributes" "# phpmd.xml"
   assert_file_not_contains ".gitattributes" "# phpstan.neon"
-  assert_file_not_contains ".gitattributes" "# phpunit.xml"
   assert_file_not_contains ".gitattributes" "# phpunit.d10.xml"
+  assert_file_not_contains ".gitattributes" "# phpunit.xml"
+  assert_file_not_contains ".gitattributes" "# tests"
 
   # Assert that composer.json was processed correctly.
   assert_file_contains "composer.json" '"name": "drupal/force_crystal"'
@@ -85,6 +91,8 @@ assert_composer_archive() {
 
   # Add files not included in the project, but supported by the scripts.
   touch .skip_npm_build
+  mkdir patches
+  touch patches/patch1.patch
 
   # Archive the project using Composer.
   archive_file_no_ext="force_crystal-1.x-dev"
