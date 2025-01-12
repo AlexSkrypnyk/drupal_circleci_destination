@@ -158,6 +158,7 @@ jobs:
         run: php -d pcov.directory=.. vendor/bin/phpunit || [ "${CI_TEST_IGNORE_FAILURE:-0}" -eq 1 ]
         env:
           BROWSERTEST_OUTPUT_DIRECTORY: /tmp
+          SIMPLETEST_DB: sqlite://tmp/db.sqlite
 
       - name: Upload test results as an artifact
         uses: actions/upload-artifact@v4
